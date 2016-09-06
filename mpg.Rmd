@@ -19,12 +19,12 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ## Executive Summary
-Looking at the `mtcars` data set, the relationship between the various variables and the miles per gallon (mpg) outcome is explored. Specifically, the following questions are answered:
+This report explores the relationship between the vehicle transmission type (standard versus automatic) and the miles per gallon (mpg) outcome of the vehicles in the `mtcars` data set. Specifically, the following questions are answered:
 
 1. Is an automatic or manual transmission better for MPG?
 2. Quantify the MPG difference between automatic and manual transmissions?
 
-The analysis of the data shows that the vehicle transmission type is one of the significant variables defining the miles per gallon of the vehicle.
+The analysis of the data shows that the vehicle transmission type is one of the significant variables defining the miles per gallon of the vehicles in this data set.
 
 ## Summary of the `mtcars` Dataset
 
@@ -44,17 +44,13 @@ The `mtcars` data set defines 11 different automobile characteristics of 32 diff
 
 ## Inference Analysis
 
-Figure 1 (in the appendix) looks at the mpg of the various vehicles divided by transmission type. The mpg for automatic transmission vehicles have mean of `r round(mean(mtcars$mpg[mtcars$am == 0]), 2)` while manual transmission vehicles have mean of `r round(mean(mtcars$mpg[mtcars$am == 1]), 2)`.
+Figure 1 (in the appendix) shows the mpg of the various vehicles plotted by transmission type. The mpg for automatic transmission vehicles have mean of `r round(mean(mtcars$mpg[mtcars$am == 0]), 2)` while manual transmission vehicles have mean of `r round(mean(mtcars$mpg[mtcars$am == 1]), 2)`.
 
 Performimg a `t.test(mpg ~ am, data = mtcars)$p.value` results in a P-Value of `r t.test(mpg ~ am, data = mtcars)$p.value`. This value is below .025 telling us to reject the null hypothesis that the mean mpg for the automatic and the manual transmission vehicles are the same.
 
 Lets look further at the regression model to determine how the transmission type impacts mileage.
 
 ## Regression Analysis
-
-```{r}
-pval <- summary(lm(mpg~am, mtcars))$coefficients[2,4]
-```
 
 The single variable model looking at mpg solely against transmission type gives a significant P-Value of 0.00029 but an adjusted R-Squared value of `r summary(lm(mpg~am, data = mtcars))$adj.r.squared` indicating the model explains a very small percentage of the residual error. Given this, we must add additional variables to the model in an attempt to explain more of the residual errors.
 
@@ -78,7 +74,7 @@ This model has an Adjusted R-Squared value of `r summary(fit)$adj.r.squared` whi
 
 ## Diagnostics
 
-Figure 2 has various residual diagnostic plots. The fitted values plot shows independance given there does not appear to be any pattern or significant outliers. The Normal Q-Q plot shows all the data on a line indicating nomality of the residuals. The randomly distributed Scale-Location plot shows constant variance. The Residuals vs. Leverage plot shows outliers. From these plots, we can say the model can be used to show the relationship of transmission type to mpg.
+Figure 2, in the appendix, has various residual diagnostic plots. The fitted values plot shows independance given there does not appear to be any pattern or significant outliers. The Normal Q-Q plot shows all the data on a line indicating nomality of the residuals. The randomly distributed Scale-Location plot shows constant variance. The Residuals vs. Leverage plot shows outliers. From these plots, we can say the model can be used to show the relationship of transmission type to mpg.
 
 ## Results
 
